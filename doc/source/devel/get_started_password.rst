@@ -140,9 +140,40 @@ Initialize the stub passwordgenerator.
 
 >>> stubgetpasswd = StubPassword()
 
+.. note::
+   
+   In automated environments (like GitHub Actions), there is no interactive terminal (TTY) available. 
+   To prevent the CI process from failing with a ``PasswordTerminalError``, we must explicitly 
+   set ``require_terminal=False``.
 
+   **The error you would otherwise see in the CI logs:**
 
->>> checkpw = PasswordDoubleCheck(min_delay=1.5, pwcall=stubgetpasswd)
+   .. code-block:: text
+
+      154 >>> checkpw()
+      Differences (unified diff with -expected +actual):
+          @@ -1,3 +1,12 @@
+           Traceback (most recent call last):
+          -    ...
+          -securify.input.exceptions.PasswordSpeedError: Input rejected: Entry was too fast (0.00s). Minimum required: 1.5s.
+          +  File "/opt/hostedtoolcache/Python/3.13.13/x64/lib/python3.13/doctest.py", line 1398, in __run
+          +    exec(compile(example.source, filename, "single",
+          +    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          +                 compileflags, True), test.globs)
+          +                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          +  File "<doctest get_started_password.rst[25]>", line 1, in <module>
+          +    checkpw()
+          +    ~~~~~~~^^
+          +  File "/home/runner/work/securify/securify/.tox/py313/lib/python3.13/site-packages/securify/input/password.py", line 172, in __call__
+          +    raise PasswordTerminalError("Operation rejected: Input is not a terminal (TTY).")
+          +securify.input.exceptions.PasswordTerminalError: Operation rejected: Input is not a terminal (TTY).
+      
+      /home/runner/work/securify/securify/doc/source/devel/get_started_password.rst:154: DocTestFailure
+      
+
+>>> checkpw = PasswordDoubleCheck(min_delay=1.5,
+...     require_terminal= False, 
+...     pwcall=stubgetpasswd)
 
 Handling Fast Input
 ^^^^^^^^^^^^^^^^^^^^
