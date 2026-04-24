@@ -214,7 +214,7 @@ def setup(app):
 
 
 # -- Project information -----------------------------------------------------
-project = "FTW Securify"
+project = "Securify"
 copyright = "2026, Fitzz TeΧnik Welt"
 author = "Fitzz TeΧnik Welt"
 html_show_copyright = True
@@ -263,7 +263,7 @@ html_theme_options = {
             "link": "py-modindex",
         },
     ],
-    "logo": "ftw-initials.svg",
+    "logo": "logo_rund.norm.svg",
     "logo_height": 40,
     "logo_width": 40*1.2,
     "logo_location": "header",
@@ -285,8 +285,8 @@ toc_object_entries_show_parents = "hide"
 # -- Options for Intersphinx
 intersphinx_mapping = {
     "python": (f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}", None),
-    "platformdirs": ("https://platformdirs.readthedocs.io/en/latest/", None),
-    "crygraph":("https://cryptography.io/en/latest/", None),
+    # "platformdirs": ("https://platformdirs.readthedocs.io/en/latest/", None),
+    # "crygraph":("https://cryptography.io/en/latest/", None),
 }
 
 #SECTION - Options for ePub output -------------------------------------------------
@@ -409,7 +409,7 @@ autosummary_imported_members = False
 autosummary_ignore_module_all = True
 autosummary_context = {}
 
-inherit_diagramm: list[str] = []
+inherit_diagramm: list[str] = ["securify.input.exceptions"]
 exclude_inherit_diagramm: list[str] = []
 
 class_extention_context = {
@@ -445,6 +445,7 @@ coverage_statistics_to_stdout = True
 coverage_show_missing_items = True
 coverage_modules = [
     "securify.input",
+    "securify.base",
 ]
 
 # NOTE - This list uses REGULAR EXPRESSIONS, not shell-style globs.

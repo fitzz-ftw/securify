@@ -16,25 +16,40 @@ tag_regex = '^(?P<prefix>v)?(?P<version>[^\+|-]+)(?P<suffix>-test)?$'
 write_to = "src/securify/input/_version.py"
 
 [project]
-classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Environment :: Console",
-  "Intended Audience :: Developers",
-  "Topic :: Text Processing :: Filters",
-  "Programming Language :: Python :: 3",
-]
-dependencies = []
-description = ""
-dynamic = ["version"]
 name = "securify"
+dynamic = ["version"]
+description = "Secure and robust input handling with TTY validation and bot protection."
 readme = "README.md"
 requires-python = ">=3.11"
+license = {text = "LGPL-2.1-or-later"}
+authors = [
+    {name = "Fitzz TeXnik Welt", email = "FitzzTeXnikWelt@t-online.de"}
+]
+maintainers = [
+    {name = "Fitzz TeXnik Welt", email = "FitzzTeXnikWelt@t-online.de"}
+]
+keywords = ["security", "password", "tty", "verification", "input"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Security",
+]
+dependencies = []
 
 [project.urls]
-# Documentation = "https://ftw-patch.readthedocs.io/en/stable/"
-# Homepage = "https://github.com/fitzz-ftw/ftw-patch"
-# Issues = "https://github.com/fitzz-ftw/ftw-patch/issues"
-# Repository = "https://github.com/fitzz-ftw/ftw-patch.git"
+Homepage = "https://github.com/fitzz-ftw/securify"
+Documentation = "https://securify.readthedocs.io/"
+Repository = "https://github.com/fitzz-ftw/securify.git"
+Issues = "https://github.com/fitzz-ftw/securify/issues"
+Changelog = "https://github.com/fitzz-ftw/securify/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 doc = [
@@ -53,13 +68,6 @@ dev = ["securify[test,doc,lint]", "esbonio==0.16.5"]
 lint = ["ruff"]
 test = ["pytest", "pytest-mock", "pytest-cov"]
 
-[[project.authors]]
-email = "FitzzTeXnikWelt@t-online.de"
-name = "Fitzz TeXnik Welt"
-
-[[project.maintainers]]
-email = "FitzzTeXnikWelt@t-online.de"
-name = "Fitzz TeXnik Welt"
 
 [tool.distutils.egg_info]
 egg_base = "."

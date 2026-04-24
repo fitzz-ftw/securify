@@ -3,7 +3,7 @@ DEPLOY_BRANCH = main
 TAG_FILE      = TAGMESSAGE.txt
 MERGE_file    = MERGEMESSAGE.txt
 OLD_MSG_DIR   = old_messages
-CLEAN_DIRS    = docs/build dist build .tox .pytest_cache .mypy_cache 
+CLEAN_DIRS    = doc/build dist build .tox .pytest_cache .mypy_cache 
 
 GIT    = git
 MAKE   = make
