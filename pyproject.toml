@@ -64,7 +64,7 @@ doc = [
   "sphinxcontrib-mermaid",
 ]
 
-dev = ["securify[test,doc,lint]", "esbonio==0.16.5"]
+dev = ["ftw-securify[test,doc,lint]", "esbonio==0.16.5"]
 lint = ["ruff"]
 test = ["pytest", "pytest-mock", "pytest-cov"]
 

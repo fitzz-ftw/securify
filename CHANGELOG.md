@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.1] - 2026-04-24
+
+### Changed
+- Official package name changed to `ftw-securify` on PyPI to avoid naming conflicts.
+- Updated `project.optional-dependencies` in `pyproject.toml` to use the correct package name for self-referencing extras.
+
+### Fixed
+- Fixed a circular dependency issue where the package tried to install its own dev-extras under the old name.
+
 ## [0.1.0] - 2026-04-24
 ### Added
 - **First Official Release**: Transitioned from experimental to the first stable minor version.
