@@ -16,7 +16,7 @@ tag_regex = '^(?P<prefix>v)?(?P<version>[^\+|-]+)(?P<suffix>-test)?$'
 write_to = "src/securify/input/_version.py"
 
 [project]
-name = "securify"
+name = "ftw-securify"
 dynamic = ["version"]
 description = "Secure and robust input handling with TTY validation and bot protection."
 readme = "README.md"
