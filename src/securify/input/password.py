@@ -53,7 +53,8 @@ class PasswordDoubleCheck:
         self._prompt1 = prompt1
         self._prompt2 = prompt2
         self._valid:bool = False
-        self._pw_input_func: Callable[[str], str] = kwargs.get("pwcall", getpass)
+        pw_func: Callable[[str], str] = kwargs.get("pwcall", getpass)
+        self._pw_input_func: Callable[[str], str] = pw_func if pw_func else getpass
 
     @property
     def prompt1(self) -> str:

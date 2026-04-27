@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.2] - 2026-01-21
+
+### Fixed
+- Improved robustness of `PasswordDoubleCheck` initialization by adding a fallback for `pwcall=None`. This prevents a `NoneType` execution error when the parameter is explicitly passed as `None` from higher-level factories or CLI arguments.
+
 ## [0.1.1] - 2026-04-24
 
 ### Changed

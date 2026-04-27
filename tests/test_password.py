@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 
 from securify.input.password import PasswordDoubleCheck, PasswordMismatchError, PasswordSpeedError
@@ -62,3 +64,21 @@ def test_reset_functionality():
 
     checker.reset()
     assert checker.is_valid is False
+
+def test_password_none_callable_fallback():
+    """
+    Test the fix: When pwcall=None is passed, the class must fallback to getpass.
+    """
+    with patch("securify.input.password.getpass") as mock_getpass:
+        mock_getpass.return_value = "secret123"
+
+        # Initialize with explicit None to trigger the fallback logic
+        checker = PasswordDoubleCheck(pwcall=None, min_delay=0)
+
+        # Mocking isatty for the test environment
+        with patch("sys.stdin.isatty", return_value=True):
+            result = checker()
+
+        assert result == "secret123"
+        assert mock_getpass.call_count == 2
+        assert checker.is_valid is True
