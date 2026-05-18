@@ -1,3 +1,4 @@
+import getpass
 from unittest.mock import patch
 
 import pytest
@@ -9,12 +10,11 @@ def test_successful_verification():
     """Test standard success case."""
     # Wir simulieren zwei identische Eingaben
     inputs = iter(["my_secure_pw", "my_secure_pw"])
-    fake_getpass = lambda _: next(inputs)  # noqa: E731
+    getpass.getpass = lambda _: next(inputs)  # noqa: E731
 
     checker = PasswordDoubleCheck(
         min_delay=0.0,  # Keine Verzögerung im Test nötig
-        require_terminal=False,
-        pwcall=fake_getpass,
+        require_terminal=False
     )
 
     result = checker()
@@ -26,9 +26,9 @@ def test_successful_verification():
 def test_password_mismatch():
     """Test if mismatch raises the correct custom exception."""
     inputs = iter(["pw1", "pw2"])
-    fake_getpass = lambda _: next(inputs)  # noqa: E731
+    getpass.getpass = lambda _: next(inputs)  # noqa: E731
 
-    checker = PasswordDoubleCheck(require_terminal=False, pwcall=fake_getpass)
+    checker = PasswordDoubleCheck(require_terminal=False)
 
     with pytest.raises(PasswordMismatchError):
         checker()
@@ -39,10 +39,10 @@ def test_password_mismatch():
 def test_too_fast_input():
     """Test the bot-protection timing logic."""
     # Zwei schnelle Eingaben
-    fake_getpass = lambda _: "constant_pw"  # noqa: E731
+    getpass.getpass = lambda _: "constant_pw"  # noqa: E731
 
     # Wir setzen eine künstlich hohe Mindestdauer
-    checker = PasswordDoubleCheck(min_delay=0.5, require_terminal=False, pwcall=fake_getpass)
+    checker = PasswordDoubleCheck(min_delay=0.5, require_terminal=False)
 
     with pytest.raises(PasswordSpeedError) as excinfo:
         checker()
@@ -55,8 +55,9 @@ def test_too_fast_input():
 def test_reset_functionality():
     """Verify that reset sets is_valid back to False."""
     inputs = iter(["pw", "pw"])
+    getpass.getpass = lambda _: next(inputs)
     checker = PasswordDoubleCheck(
-        min_delay=0, require_terminal=False, pwcall=lambda _: next(inputs)
+        min_delay=0, require_terminal=False
     )
 
     checker()
@@ -69,7 +70,7 @@ def test_password_none_callable_fallback():
     """
     Test the fix: When pwcall=None is passed, the class must fallback to getpass.
     """
-    with patch("securify.input.password.getpass") as mock_getpass:
+    with patch("getpass.getpass") as mock_getpass:
         mock_getpass.return_value = "secret123"
 
         # Initialize with explicit None to trigger the fallback logic
