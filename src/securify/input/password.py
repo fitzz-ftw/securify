@@ -9,11 +9,11 @@ password
 This module provides tools for secure password input verification.
 """
 
+import getpass
 import sys
 import time
-from getpass import getpass
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from securify.input.exceptions import (
     PasswordMismatchError,
@@ -53,8 +53,6 @@ class PasswordDoubleCheck:
         self._prompt1 = prompt1
         self._prompt2 = prompt2
         self._valid:bool = False
-        pw_func: Callable[[str], str] = kwargs.get("pwcall", getpass)
-        self._pw_input_func: Callable[[str], str] = pw_func if pw_func else getpass
 
     @property
     def prompt1(self) -> str:
@@ -173,13 +171,13 @@ class PasswordDoubleCheck:
             raise PasswordTerminalError("Operation rejected: Input is not a terminal (TTY).")
 
         # 2. First password entry
-        first_input = self._pw_input_func(prompt1)
+        first_input = getpass.getpass(prompt1)
         
         # Start timer immediately after the first 'Enter'
         start_time = time.perf_counter()
 
         # 3. Second password entry
-        second_input = self._pw_input_func(prompt2)
+        second_input = getpass.getpass(prompt2)
         
         # End timer after the second 'Enter'
         end_time = time.perf_counter()

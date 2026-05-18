@@ -6,12 +6,16 @@ Password Double Check
 The :class:`PasswordDoubleCheck` class is a callable utility to ensure secure 
 password entry with bot protection.
 
+
+
+
+
 Basic Configuration
 -------------------
 
 You can configure the behavior via properties. Let's see how they work:
 
-
+>>> import getpass
 
 >>> from securify.input.password import PasswordDoubleCheck
 >>> checker = PasswordDoubleCheck(min_delay=2.0)
@@ -171,9 +175,11 @@ Initialize the stub passwordgenerator.
       /home/runner/work/securify/securify/doc/source/devel/get_started_password.rst:154: DocTestFailure
       
 
+
+>>> getpass.getpass = stubgetpasswd
+
 >>> checkpw = PasswordDoubleCheck(min_delay=1.5,
-...     require_terminal= False, 
-...     pwcall=stubgetpasswd)
+...     require_terminal= False,)
 
 Handling Fast Input
 ^^^^^^^^^^^^^^^^^^^^
