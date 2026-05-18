@@ -1,5 +1,16 @@
 # Changelog
 
+
+## [0.1.3] - 2026-05-18
+
+### Changed
+- **Security Refactoring**: Completely removed the internal `pwcall` callback mechanism from `PasswordDoubleCheck` to systematically eliminate potential injection vectors (backdoors). This parameter was originally introduced to facilitate password simulation within doctests and unit tests.
+- The class now strictly enforces the use of the standard library via `getpass.getpass` internally.
+- The `**kwargs` argument remains in the function signature for full backward compatibility and serves as preparation for future pre-prompt messages/warnings.
+
+### Fixed
+- Cleared legacy code from the test suite (`tests/test_password.py`) and doctests, modifying them so that test stubs are now safely and securely injected via global monkeypatching of `getpass.getpass`.
+
 ## [0.1.2] - 2026-01-21
 
 ### Fixed
